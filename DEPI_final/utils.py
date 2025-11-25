@@ -1,44 +1,71 @@
-# config.py
+# utils.py
 import os
-import torch
-import random
+import glob
+import cv2
 import numpy as np
+from config import VIDEO_EXTS, IMG_SIZE, N_FRAMES
 
-# --- Paths (عدل المسارات دي حسب جهازك) ---
-DATA_ROOT = r"E:\Datasets\FaceForensics++_C23"  # مثال: غير المسار ده لمسار الداتا عندك
-CACHE_DIR = "./cache_frames"         # الكاش هيتحفظ في نفس فولدر المشروع
-SAVE_DIR = "./models"                # الموديل هيتحفظ هنا
+# تحميل ملف الهار كاسكيد للوجه
+haar_path = cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
+face_cascade = cv2.CascadeClassifier(haar_path)
 
-# تأكد من إنشاء الفولدرات
-os.makedirs(CACHE_DIR, exist_ok=True)
-os.makedirs(SAVE_DIR, exist_ok=True)
+def list_videos_in_dir(dir_path):
+    vids = []
+    if not os.path.exists(dir_path):
+        return []
+    # البحث المباشر
+    for ext in VIDEO_EXTS:
+        vids.extend(glob.glob(os.path.join(dir_path, f"*{ext}")))
+    # البحث داخل المجلدات الفرعية
+    for sub in sorted(os.listdir(dir_path)):
+        p = os.path.join(dir_path, sub)
+        if os.path.isdir(p):
+            for ext in VIDEO_EXTS:
+                vids.extend(glob.glob(os.path.join(p, f"*{ext}")))
+    return sorted(list(set(vids)))
 
-# --- Hyperparameters ---
-REAL_SUBFOLDER = "original"
-FAKE_TYPES = ["Deepfakes", "Face2Face", "FaceSwap", "FaceShifter"]
-VIDEO_EXTS = [".mp4", ".avi", ".mov", ".mkv"]
+def sample_frames_from_video(video_path, n_frames=N_FRAMES):
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        return []
+    total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    frames = []
 
-N_FRAMES = 10
-IMG_SIZE = 224
-BATCH_VIDEO = 8
-EPOCHS = 20
-LR = 1e-4
+    if total <= 0:
+        # Fallback if frame count is unknown
+        for _ in range(n_frames):
+            ret, frame = cap.read()
+            if ret:
+                frames.append(frame[..., ::-1]) # BGR to RGB
+        cap.release()
+        return frames
 
-# --- Device & Seed ---
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-# لزيادة السرعة لو كارت الشاشة NVIDIA
-if torch.cuda.is_available():
-    torch.backends.cudnn.benchmark = True
+    indices = np.linspace(0, total - 1, n_frames, dtype=int)
+    for idx in indices:
+        cap.set(cv2.CAP_PROP_POS_FRAMES, int(idx))
+        ret, frame = cap.read()
+        if ret:
+            frames.append(frame[..., ::-1])
 
-RANDOM_SEED = 42
-NUM_WORKERS = 4  # خليها 0 لو شغال ويندوز وحصل مشاكل، بس 4 أسرع
-PIN_MEMORY = True
+    cap.release()
+    return frames
 
-def seed_everything(seed=RANDOM_SEED):
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    if torch.cuda.is_available():
-        torch.cuda.manual_seed_all(seed)
+def crop_face_or_center(frame, out_size=IMG_SIZE):
+    h, w, _ = frame.shape
+    gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.1, 4)
 
-seed_everything()
+    if len(faces) > 0:
+        x, y, fw, fh = max(faces, key=lambda r: r[2] * r[3])
+        cx, cy = x + fw // 2, y + fh // 2
+        side = int(max(fw, fh) * 1.4)
+        x1 = max(0, cx - side // 2)
+        y1 = max(0, cy - side // 2)
+        face = frame[y1:y1 + side, x1:x1 + side]
+    else:
+        side = min(h, w)
+        x1 = (w - side) // 2
+        y1 = (h - side) // 2
+        face = frame[y1:y1 + side, x1:x1 + side]
+
+    return cv2.resize(face, (out_size, out_size))
