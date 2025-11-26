@@ -1,4 +1,20 @@
 import streamlit as st
+import gdown
+import os
+
+
+# Path where you want to store the model locally
+MODEL_PATH = "models/best_model.pth"
+DRIVE_FILE_ID = "136oMq1IwodcijxodONLjN8ipGaokSfCC"
+MODEL_DIR = os.path.dirname(MODEL_PATH)
+
+os.makedirs(MODEL_DIR, exist_ok=True)
+
+if not os.path.exists(MODEL_PATH):
+    with st.spinner("Downloading model..."):
+        url = f"https://drive.google.com/uc?id={DRIVE_FILE_ID}"
+        gdown.download(url, MODEL_PATH, quiet=False)
+
 
 # -------------------------------------------
 # Page Configuration
@@ -73,3 +89,4 @@ st.info("Use the sidebar on the left to navigate between pages.")
 # Footer
 st.markdown("---")
 st.markdown("<p class='sub-title'>&copy; 2025 Deepfake Detection System | All rights reserved</p>", unsafe_allow_html=True)
+
