@@ -4,12 +4,13 @@ import torch
 import random
 import numpy as np
 
-# --- Paths (عدل المسارات دي حسب جهازك) ---
-DATA_ROOT = r"E:\Datasets\FaceForensics++_C23"  # مثال: غير المسار ده لمسار الداتا عندك
-CACHE_DIR = "./cache_frames"         # الكاش هيتحفظ في نفس فولدر المشروع
-SAVE_DIR = "./models"                # الموديل هيتحفظ هنا
+# --- Paths ---
+DATA_ROOT = "./FaceForensics++_C23"
+CACHE_DIR = "./cache_frames"
+SAVE_DIR = "./models"
 
-# تأكد من إنشاء الفولدرات
+# --- Create Directories ---
+os.makedirs(DATA_ROOT, exist_ok=True)
 os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(SAVE_DIR, exist_ok=True)
 
@@ -26,12 +27,12 @@ LR = 1e-4
 
 # --- Device & Seed ---
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-# لزيادة السرعة لو كارت الشاشة NVIDIA
+# --- Enable cudnn benchmark for performance ---
 if torch.cuda.is_available():
     torch.backends.cudnn.benchmark = True
 
 RANDOM_SEED = 42
-NUM_WORKERS = 4  # خليها 0 لو شغال ويندوز وحصل مشاكل، بس 4 أسرع
+NUM_WORKERS = 0 # Set to 0 for Windows compatibility (you can increase this on Linux/Mac)
 PIN_MEMORY = True
 
 def seed_everything(seed=RANDOM_SEED):

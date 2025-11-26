@@ -9,7 +9,7 @@ import torchvision.transforms as T
 from config import CACHE_DIR, N_FRAMES, IMG_SIZE
 from utils import sample_frames_from_video, crop_face_or_center
 
-# --- Transforms Definition (كانت ناقصة في الكود الأصلي) ---
+# --- Transforms Definition (Train & Val) ---
 train_transforms = T.Compose([
     T.Resize((IMG_SIZE, IMG_SIZE)),
     T.RandomHorizontalFlip(),
@@ -82,4 +82,8 @@ class CachedVideoDataset(Dataset):
             to_tensor = T.ToTensor()
             processed = [to_tensor(f) for f in arr]
             
-        return torch.stack(processed), torch.tensor(label, dtype=torch.float32)
+        frames = torch.stack(processed)           # (N_FRAMES, 3, H, W)
+        # frames = frames.unsqueeze(0)              # (1, N_FRAMES, 3, H, W)
+
+        labels = torch.tensor(label, dtype=torch.float32)
+        return frames, labels

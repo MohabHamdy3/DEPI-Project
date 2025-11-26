@@ -5,4 +5,4 @@ tqdm
 scikit-learn
 matplotlib
 pillow
-numpy
+numpy   

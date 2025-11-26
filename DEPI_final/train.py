@@ -12,7 +12,7 @@ import numpy as np
 
 # Import custom modules
 import config
-from utils import list_videos_in_dir
+from utils import list_videos_in_dir , sample_frames_from_video
 from dataset import CachedVideoDataset, cache_video_to_npz, train_transforms, val_transforms
 from model import VideoModel
 
@@ -88,7 +88,12 @@ def run_training(model, train_loader, val_loader):
             frames, labels = frames.to(config.DEVICE), labels.to(config.DEVICE)
 
             optimizer.zero_grad()
+            # frames: (BATCH, 1, N_FRAMES, 3, H, W)
+            # frames = frames.squeeze(1)   # → (BATCH, N_FRAMES, 3, H, W)
+            # print(frames.shape)
             outputs = model(frames)
+            labels = labels.view(-1)       # (B,) instead of (B,1)
+            outputs = outputs.view(-1)     # (B,) instead of (B,)
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
@@ -109,7 +114,7 @@ def run_training(model, train_loader, val_loader):
         if metrics["auc"] > best_auc:
             best_auc = metrics["auc"]
             torch.save(model.state_dict(), os.path.join(config.SAVE_DIR, "best_model.pth"))
-            print("💾 Saved best model")
+            print("Saved best model")
 
     # Plotting
     plt.figure(figsize=(12, 5))
@@ -137,7 +142,7 @@ if __name__ == "__main__":
     )
 
     if not videos:
-        print("❌ No videos found! Check paths in config.py")
+        print(" No videos found! Check paths in config.py")
         exit()
 
     # 2. Pre-process / Cache (Optional but recommended)
@@ -145,6 +150,12 @@ if __name__ == "__main__":
     for p, _ in tqdm(videos, desc="Caching"):
         cache_video_to_npz(p)
 
+    print("Number of videos:", len(videos))
+    for p, _ in videos:
+        print("Checking:", p)
+        frames = sample_frames_from_video(p)
+        print("Frames read:", len(frames))
+        break
     # 3. Split Data
     paths = [p for p, _ in videos]
     labels = [l for _, l in videos]
@@ -172,6 +183,11 @@ if __name__ == "__main__":
     # 5. Model & Train
     print(f"Using Device: {config.DEVICE}")
     model = VideoModel(pretrained=True).to(config.DEVICE)
-    
+    # --- Check GPU info ---
+    import torch
+    print("CUDA Available:", torch.cuda.is_available())
+    print("Number of GPUs:", torch.cuda.device_count())
+    if torch.cuda.is_available():
+        print("GPU Name:", torch.cuda.get_device_name(0))
     best_auc = run_training(model, train_loader, val_loader)
-    print(f"\n🔥 Finished! Best AUC: {best_auc:.4f}")
+    print(f"\n Finished! Best AUC: {best_auc:.4f}")

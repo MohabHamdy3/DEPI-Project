@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+myenv/
+
+# macOS
+.DS_Store
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# PyCharm / VSCode
+.idea/
+.vscode/
+
+# Streamlit cache
+.cache/
+cache_frames/
+
+# OS generated files
+Thumbs.db
+
+# Model / dataset files
+models/
+assets/
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+
+# the data
+data/
+FaceForensics++_C23/
+
+# Packages file is fine to keep, ignore nothing else
