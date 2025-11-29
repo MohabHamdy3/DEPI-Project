@@ -32,7 +32,7 @@ threshold = st.sidebar.slider(
     "Fake Probability Threshold",
     min_value=0.1,
     max_value=0.9,
-    value=0.5,
+    value=0.75,
     step=0.01,
     help="If the model's output probability is above this value, the video is classified as FAKE."
 )
