@@ -3,14 +3,12 @@ import streamlit as st
 def show_footer():
     st.markdown("---")
     
-    # عنوان قسم الفريق
-    st.markdown("<h3 style='text-align: center; color: #fff;'>Meet the Team</h3>", unsafe_allow_html=True)
+    # 1. عنوان الفريق
+    st.markdown("<h3 style='text-align: center; color: #fff; margin-bottom: 20px;'>Meet the Team</h3>", unsafe_allow_html=True)
     
-    # ---------------------------------------------------------
-    # 1. بيانات أعضاء الفريق (عدل الأسماء والصور واللينكات هنا)
-    # ---------------------------------------------------------
+    # 2. بيانات الـ 6 أعضاء (تقدر تغير الصور والأسماء براحتك)
     team_members = [
-        {"name": "Ahmed Sief Eleslam", "role": "AI Engineer", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png", "link": "#"},
+        {"name": "Ahmed Sief", "role": "AI Engineer", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png", "link": "#"},
         {"name": "Member 2", "role": "Data Scientist", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140037.png", "link": "#"},
         {"name": "Member 3", "role": "Backend Dev", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140047.png", "link": "#"},
         {"name": "Member 4", "role": "Frontend Dev", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140051.png", "link": "#"},
@@ -18,104 +16,87 @@ def show_footer():
         {"name": "Member 6", "role": "Manager", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140039.png", "link": "#"},
     ]
 
-    # ---------------------------------------------------------
-    # 2. CSS (التصميم عشان يجوا جنب بعض)
-    # ---------------------------------------------------------
+    # 3. تصميم CSS يضمن ظهور الكروت بجانب بعضها
     st.markdown("""
     <style>
-    .team-container {
+    .team-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 20px;
+        gap: 15px;
+        justify-items: center;
         margin-bottom: 40px;
-        padding: 10px;
     }
-    
-    .card {
+    .team-card {
         background-color: #262730;
+        border: 1px solid #333;
         border-radius: 10px;
         padding: 15px;
+        width: 100%;
         text-align: center;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        transition: transform 0.2s;
-        border: 1px solid #444;
+        transition: transform 0.3s ease;
     }
-    
-    .card:hover {
+    .team-card:hover {
         transform: translateY(-5px);
         border-color: #ff4b4b;
     }
-    
-    .card img {
-        border-radius: 50%;
+    .team-card img {
         width: 80px;
         height: 80px;
+        border-radius: 50%;
         object-fit: cover;
         margin-bottom: 10px;
         border: 2px solid #ff4b4b;
     }
-    
-    .card h4 {
+    .team-card h4 {
         margin: 5px 0;
         font-size: 16px;
         color: #fff;
-        font-weight: 600;
     }
-    
-    .card p {
+    .team-card p {
+        font-size: 12px;
         color: #aaa;
-        font-size: 13px;
-        margin: 0;
+        margin-bottom: 10px;
     }
-    
-    .card a {
-        display: inline-block;
-        margin-top: 10px;
+    .team-card a {
         text-decoration: none;
         color: #ff4b4b;
-        font-size: 12px;
         font-weight: bold;
+        font-size: 12px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-    # ---------------------------------------------------------
-    # 3. تحويل البيانات لـ HTML وعرضها
-    # ---------------------------------------------------------
-    cards_html = '<div class="team-container">'
+    # 4. بناء كود HTML للكروت
+    html_code = '<div class="team-grid">'
     for member in team_members:
-        cards_html += f"""
-        <div class="card">
-            <img src="{member['img']}" alt="{member['name']}">
+        html_code += f"""
+        <div class="team-card">
+            <img src="{member['img']}">
             <h4>{member['name']}</h4>
             <p>{member['role']}</p>
             <a href="{member['link']}" target="_blank">View Profile</a>
         </div>
         """
-    cards_html += '</div>'
+    html_code += '</div>'
 
-    # السطر ده هو اللي بيخلي الكود يظهر كشكل مش كنص
-    st.markdown(cards_html, unsafe_allow_html=True)
+    # عرض الكروت (هنا السر: استخدام markdown مرة واحدة للكل)
+    st.markdown(html_code, unsafe_allow_html=True)
 
-    # ---------------------------------------------------------
-    # 4. قسم الفيدباك (Feedback Form) - رجعناه تاني
-    # ---------------------------------------------------------
+    # 5. صندوق الفيدباك (زي ما طلبت يكون موجود تحت)
     st.write("---")
     st.subheader("📩 Send Feedback")
     
     with st.form("feedback_form"):
-        c1, c2 = st.columns(2)
-        with c1:
-            name = st.text_input("Name (Optional)")
-        with c2:
-            email = st.text_input("Email (Optional)")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.text_input("Name (Optional)")
+        with col2:
+            st.text_input("Email (Optional)")
             
-        feedback = st.text_area("Your Feedback", placeholder="Tell us what you think or report a bug...")
+        st.text_area("Your Feedback", placeholder="Tell us what you think...")
         
-        submitted = st.form_submit_button("Submit Feedback")
-        
-        if submitted:
+        if st.form_submit_button("Submit Feedback"):
             st.success("Thank you for your feedback!")
-
-    # حقوق الملكية في النهاية
-    st.markdown("<br><p style='text-align: center; color: #666; font-size: 12px;'>&copy; 2025 Deepfake Detection System</p>", unsafe_allow_html=True)
+            
+    # الحقوق
+    st.markdown("<div style='text-align: center; color: #666; font-size: 12px; margin-top: 20px;'>&copy; 2025 Deepfake Detection System</div>", unsafe_allow_html=True)
