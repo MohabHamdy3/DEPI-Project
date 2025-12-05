@@ -9,42 +9,42 @@ def show_footer():
     # 2. البيانات (تقدر تعدل اللينكات هنا)
     team_members = [
         {
-            "name": "Ahmed Sief", 
+            "name": "Ahmed Sief Eleslam", 
             "role": "AI Engineer", 
-            "img": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png", 
-            "linkedin": "https://www.linkedin.com/", 
-            "github": "https://github.com/"
+            "img": "https://drive.google.com/file/d/1-EDdVe4WGkCT_36b6XsoZx853dhRzg_q/view?usp=sharing", 
+            "linkedin": "https://www.linkedin.com/in/ahmed-sief-eleslam-124b4a249/", 
+            "github": "https://github.com/ahmedsief0"
         },
         {
-            "name": "Member 2", 
+            "name": "Mohamed Ragab", 
             "role": "Data Scientist", 
             "img": "https://cdn-icons-png.flaticon.com/512/4140/4140037.png", 
             "linkedin": "#", 
             "github": "#"
         },
         {
-            "name": "Member 3", 
+            "name": "Youssef ezzat", 
             "role": "Backend Dev", 
             "img": "https://cdn-icons-png.flaticon.com/512/4140/4140047.png", 
             "linkedin": "#", 
             "github": "#"
         },
         {
-            "name": "Member 4", 
+            "name": "Omar Mostafa", 
             "role": "Frontend Dev", 
             "img": "https://cdn-icons-png.flaticon.com/512/4140/4140051.png", 
             "linkedin": "#", 
             "github": "#"
         },
         {
-            "name": "Member 5", 
+            "name": "Osama Abdelrahman", 
             "role": "Researcher", 
             "img": "https://cdn-icons-png.flaticon.com/512/4140/4140040.png", 
             "linkedin": "#", 
             "github": "#"
         },
         {
-            "name": "Member 6", 
+            "name": "Mohab Hamdy", 
             "role": "Manager", 
             "img": "https://cdn-icons-png.flaticon.com/512/4140/4140039.png", 
             "linkedin": "#", 
