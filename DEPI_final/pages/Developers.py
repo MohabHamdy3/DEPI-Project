@@ -1,4 +1,7 @@
 import streamlit as st
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import smtplib
 
 def show_footer():
     st.write("---")
@@ -53,8 +56,7 @@ def show_footer():
     ]
 def send_email(name, email, message):
     sender_email = "YOUR_GMAIL@gmail.com"
-    app_password = "eirf hmin zwbn psvt
-"  # من جوجل 16 حرف
+    app_password = "eirf hmin zwbn psvt"  # من جوجل 16 حرف
 
     receiver_email = "ahmedsiefeleslam22@gmail.com"  # الإيميل اللي توصله الفيدباك
 
