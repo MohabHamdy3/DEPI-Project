@@ -11,7 +11,7 @@ def show_footer():
         {
             "name": "Ahmed Sief Eleslam", 
             "role": "AI Engineer", 
-            "img": "https://ibb.co/rKSv78dz", 
+            "img": "https://media.licdn.com/dms/image/v2/D4D03AQE4AQyY8K67nA/profile-displayphoto-scale_200_200/B4DZf4ftipGsAc-/0/1752220753755?e=1766620800&v=beta&t=uYgHHsyOaoOkzIoPcwUKWf2zBD0osVRpSTpXBK-yJ4Y", 
             "linkedin": "https://www.linkedin.com/in/ahmed-sief-eleslam-124b4a249/", 
             "github": "https://github.com/ahmedsief0"
         },
