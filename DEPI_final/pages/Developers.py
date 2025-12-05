@@ -2,7 +2,39 @@ import streamlit as st
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib
+def send_email(name, email, message):
+    sender_email = "YOUR_GMAIL@gmail.com"
+    app_password = "eirf hmin zwbn psvt"  # من جوجل 16 حرف
 
+    receiver_email = "ahmedsiefeleslam22@gmail.com"  # الإيميل اللي توصله الفيدباك
+
+    subject = "New Feedback Received"
+    
+    body = f"""
+    New feedback from your Streamlit App:
+
+    Name: {name}
+    Email: {email}
+    
+    Message:
+    {message}
+    """
+
+    msg = MIMEMultipart()
+    msg["From"] = sender_email
+    msg["To"] = receiver_email
+    msg["Subject"] = subject
+    msg.attach(MIMEText(body, "plain"))
+
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login(sender_email, app_password)
+        server.sendmail(sender_email, receiver_email, msg.as_string())
+        server.quit()
+        return True
+    except Exception as e:
+        return False
 def show_footer():
     st.write("---")
     
@@ -54,39 +86,7 @@ def show_footer():
             "github": "#"
         },
     ]
-def send_email(name, email, message):
-    sender_email = "YOUR_GMAIL@gmail.com"
-    app_password = "eirf hmin zwbn psvt"  # من جوجل 16 حرف
 
-    receiver_email = "ahmedsiefeleslam22@gmail.com"  # الإيميل اللي توصله الفيدباك
-
-    subject = "New Feedback Received"
-    
-    body = f"""
-    New feedback from your Streamlit App:
-
-    Name: {name}
-    Email: {email}
-    
-    Message:
-    {message}
-    """
-
-    msg = MIMEMultipart()
-    msg["From"] = sender_email
-    msg["To"] = receiver_email
-    msg["Subject"] = subject
-    msg.attach(MIMEText(body, "plain"))
-
-    try:
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.starttls()
-        server.login(sender_email, app_password)
-        server.sendmail(sender_email, receiver_email, msg.as_string())
-        server.quit()
-        return True
-    except Exception as e:
-        return False
 
     # 3. CSS (التعديلات هنا: كبرنا المقاسات وظبطنا الـ Grid ليكون 3)
     st.markdown("""
