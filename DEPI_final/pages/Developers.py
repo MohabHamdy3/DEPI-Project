@@ -51,6 +51,40 @@ def show_footer():
             "github": "#"
         },
     ]
+def send_email(name, email, message):
+    sender_email = "YOUR_GMAIL@gmail.com"
+    app_password = "eirf hmin zwbn psvt
+"  # من جوجل 16 حرف
+
+    receiver_email = "ahmedsiefeleslam22@gmail.com"  # الإيميل اللي توصله الفيدباك
+
+    subject = "New Feedback Received"
+    
+    body = f"""
+    New feedback from your Streamlit App:
+
+    Name: {name}
+    Email: {email}
+    
+    Message:
+    {message}
+    """
+
+    msg = MIMEMultipart()
+    msg["From"] = sender_email
+    msg["To"] = receiver_email
+    msg["Subject"] = subject
+    msg.attach(MIMEText(body, "plain"))
+
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login(sender_email, app_password)
+        server.sendmail(sender_email, receiver_email, msg.as_string())
+        server.quit()
+        return True
+    except Exception as e:
+        return False
 
     # 3. CSS (التعديلات هنا: كبرنا المقاسات وظبطنا الـ Grid ليكون 3)
     st.markdown("""
@@ -148,7 +182,18 @@ def show_footer():
         st.text_area("Your Feedback", height=100)
         
         if st.form_submit_button("Submit"):
-            st.success("Thank you for your feedback!")
+            name = st.session_state.get("name_input", "")
+            email = st.session_state.get("email_input", "")
+            msg = st.session_state.get("feedback_input", "")
+
+            if msg.strip() == "":
+                st.error("Please write your feedback first.")
+            else:
+                ok = send_email(name, email, msg)
+                if ok:
+                    st.success("Your feedback has been sent successfully!")
+                else:
+                    st.error("Failed to send the email. Please try again later.")
             
     st.markdown("<div style='text-align: center; color: #666; font-size: 13px; margin-top: 30px;'>&copy; 2025 Deepfake Detection System | All rights reserved</div>", unsafe_allow_html=True)
 show_footer()    
