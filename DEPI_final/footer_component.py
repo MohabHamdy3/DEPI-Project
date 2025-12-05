@@ -1,12 +1,12 @@
 import streamlit as st
 
 def show_footer():
-    st.markdown("---")
+    st.write("---")
     
-    # 1. عنوان الفريق
-    st.markdown("<h3 style='text-align: center; color: #fff; margin-bottom: 20px;'>Meet the Team</h3>", unsafe_allow_html=True)
+    # 1. العنوان
+    st.markdown("<h3 style='text-align: center; color: #fff;'>Meet the Team</h3>", unsafe_allow_html=True)
     
-    # 2. بيانات الـ 6 أعضاء (تقدر تغير الصور والأسماء براحتك)
+    # 2. البيانات
     team_members = [
         {"name": "Ahmed Sief", "role": "AI Engineer", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png", "link": "#"},
         {"name": "Member 2", "role": "Data Scientist", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140037.png", "link": "#"},
@@ -16,24 +16,22 @@ def show_footer():
         {"name": "Member 6", "role": "Manager", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140039.png", "link": "#"},
     ]
 
-    # 3. تصميم CSS يضمن ظهور الكروت بجانب بعضها
+    # 3. الـ CSS (الاستايل)
     st.markdown("""
     <style>
     .team-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 15px;
-        justify-items: center;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
     }
     .team-card {
         background-color: #262730;
-        border: 1px solid #333;
+        border: 1px solid #444;
         border-radius: 10px;
         padding: 15px;
-        width: 100%;
         text-align: center;
-        transition: transform 0.3s ease;
+        transition: transform 0.2s;
     }
     .team-card:hover {
         transform: translateY(-5px);
@@ -43,60 +41,57 @@ def show_footer():
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        object-fit: cover;
         margin-bottom: 10px;
         border: 2px solid #ff4b4b;
     }
     .team-card h4 {
-        margin: 5px 0;
+        margin: 0;
         font-size: 16px;
         color: #fff;
     }
     .team-card p {
+        margin: 5px 0 10px 0;
         font-size: 12px;
         color: #aaa;
-        margin-bottom: 10px;
     }
     .team-card a {
         text-decoration: none;
         color: #ff4b4b;
-        font-weight: bold;
         font-size: 12px;
+        font-weight: bold;
     }
     </style>
     """, unsafe_allow_html=True)
 
-    # 4. بناء كود HTML للكروت
-    html_code = '<div class="team-grid">'
+    # 4. تجميع الـ HTML (بدون مسافات Indentation عشان المارك داون ميبوظش)
+    cards_html = '<div class="team-grid">'
     for member in team_members:
-        html_code += f"""
-        <div class="team-card">
-            <img src="{member['img']}">
-            <h4>{member['name']}</h4>
-            <p>{member['role']}</p>
-            <a href="{member['link']}" target="_blank">View Profile</a>
-        </div>
-        """
-    html_code += '</div>'
+        cards_html += (
+            f'<div class="team-card">'
+            f'<img src="{member["img"]}" alt="{member["name"]}">'
+            f'<h4>{member["name"]}</h4>'
+            f'<p>{member["role"]}</p>'
+            f'<a href="{member["link"]}" target="_blank">View Profile</a>'
+            f'</div>'
+        )
+    cards_html += '</div>'
 
-    # عرض الكروت (هنا السر: استخدام markdown مرة واحدة للكل)
-    st.markdown(html_code, unsafe_allow_html=True)
+    # عرض الكروت
+    st.markdown(cards_html, unsafe_allow_html=True)
 
-    # 5. صندوق الفيدباك (زي ما طلبت يكون موجود تحت)
+    # 5. الفيدباك
     st.write("---")
     st.subheader("📩 Send Feedback")
     
     with st.form("feedback_form"):
-        col1, col2 = st.columns(2)
-        with col1:
+        c1, c2 = st.columns(2)
+        with c1:
             st.text_input("Name (Optional)")
-        with col2:
+        with c2:
             st.text_input("Email (Optional)")
-            
-        st.text_area("Your Feedback", placeholder="Tell us what you think...")
+        st.text_area("Your Feedback")
         
-        if st.form_submit_button("Submit Feedback"):
-            st.success("Thank you for your feedback!")
+        if st.form_submit_button("Submit"):
+            st.success("Thanks!")
             
-    # الحقوق
     st.markdown("<div style='text-align: center; color: #666; font-size: 12px; margin-top: 20px;'>&copy; 2025 Deepfake Detection System</div>", unsafe_allow_html=True)
