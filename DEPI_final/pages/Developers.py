@@ -178,10 +178,11 @@ def show_footer():
     with st.form("feedback_form"):
         c1, c2 = st.columns(2)
         with c1:
-            st.text_input("Name (Optional)")
+            st.text_input("Name (Optional)", key="name_input")
         with c2:
-            st.text_input("Email (Optional)")
-        st.text_area("Your Feedback", height=100)
+            st.text_input("Email (Optional)", key="email_input")
+        st.text_area("Your Feedback", height=100, key="feedback_input")
+
         
         if st.form_submit_button("Submit"):
             name = st.session_state.get("name_input", "")
