@@ -18,36 +18,36 @@ def show_footer():
         {
             "name": "Mohamed Ragab", 
             "role": "Data Scientist", 
-            "img": "https://cdn-icons-png.flaticon.com/512/4140/4140037.png", 
-            "linkedin": "#", 
+            "img": "https://media.licdn.com/dms/image/v2/D4D03AQF43t24jBTPdQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1706702711219?e=1766620800&v=beta&t=K7HEMSjkhIcuXXGOOpCN8v0fAEj5neEocpnDBNcCS0A", 
+            "linkedin": "https://www.linkedin.com/in/moragab-22nov04/", 
             "github": "#"
         },
         {
             "name": "Youssef ezzat", 
             "role": "Backend Dev", 
-            "img": "https://cdn-icons-png.flaticon.com/512/4140/4140047.png", 
-            "linkedin": "#", 
+            "img": "https://media.licdn.com/dms/image/v2/D4E03AQFR2tal4VhfRQ/profile-displayphoto-scale_200_200/B4EZrD1G1THoAY-/0/1764222071472?e=1766620800&v=beta&t=gS5ZHi4PI1cFAnLRFNqgZaP9n2pKKZmG3rc9rPfwEco", 
+            "linkedin": "https://www.linkedin.com/in/youssefezzatb/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", 
             "github": "#"
         },
         {
             "name": "Omar Mostafa", 
             "role": "Frontend Dev", 
-            "img": "https://cdn-icons-png.flaticon.com/512/4140/4140051.png", 
-            "linkedin": "#", 
+            "img": "https://media.licdn.com/dms/image/v2/D4E35AQHYhmZcYm6aRw/profile-framedphoto-shrink_200_200/B4EZgYEjmaGUAc-/0/1752750504632?e=1765551600&v=beta&t=0hD_T-Gcy9sfvXzjeBkF9fpuSK_46y6qsFHcMdzju5o", 
+            "linkedin": "https://www.linkedin.com/in/omar-mostafa-omar/?utm_source=share_via&utm_content=profile&utm_medium=member_android", 
             "github": "#"
         },
         {
             "name": "Osama Abdelrahman", 
             "role": "Researcher", 
             "img": "https://cdn-icons-png.flaticon.com/512/4140/4140040.png", 
-            "linkedin": "#", 
+            "linkedin": "https://www.linkedin.com/in/osamaabdelrahman1/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", 
             "github": "#"
         },
         {
             "name": "Mohab Hamdy", 
             "role": "Manager", 
-            "img": "https://cdn-icons-png.flaticon.com/512/4140/4140039.png", 
-            "linkedin": "#", 
+            "img": "https://media.licdn.com/dms/image/v2/D4E03AQH0WeL9l4l1xg/profile-displayphoto-shrink_200_200/B4EZW5QtmvHcAY-/0/1742569921364?e=1766620800&v=beta&t=yKHUOpIplRIYlIE_hmiKmT8O2PBLrAC3dxG7-tnS2KI", 
+            "linkedin": "https://www.linkedin.com/in/mohabhamdy/", 
             "github": "#"
         },
     ]
