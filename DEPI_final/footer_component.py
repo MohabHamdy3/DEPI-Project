@@ -3,86 +3,85 @@ import streamlit as st
 def show_footer():
     st.markdown("---")
     
-    # ---------------------------------------------------------
-    # 1. TEAM SECTION (Interactive Cards)
-    # ---------------------------------------------------------
-    st.markdown("<h3 style='text-align: center;'>Meet the Team</h3>", unsafe_allow_html=True)
+    # عنوان قسم الفريق
+    st.markdown("<h3 style='text-align: center; color: #fff;'>Meet the Team</h3>", unsafe_allow_html=True)
     
-    # قائمة بأسماء الفريق وبياناتهم (تقدر تعدل الصور واللينكات من هنا)
+    # ---------------------------------------------------------
+    # 1. بيانات أعضاء الفريق (عدل الأسماء والصور واللينكات هنا)
+    # ---------------------------------------------------------
     team_members = [
-        {
-            "name": "Ahmed Sief Eleslam",
-            "role": "AI Engineer & Developer",
-            "img": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png", # استبدلها بصورتك الحقيقية لو حابب
-            "linkedin": "#",
-            "github": "#"
-        },
-        {
-            "name": "Team Member 2",
-            "role": "Data Scientist",
-            "img": "https://cdn-icons-png.flaticon.com/512/4140/4140037.png",
-            "linkedin": "#",
-            "github": "#"
-        },
-        # تقدر تزود أعضاء تانيين هنا
+        {"name": "Ahmed Sief Eleslam", "role": "AI Engineer", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140048.png", "link": "#"},
+        {"name": "Member 2", "role": "Data Scientist", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140037.png", "link": "#"},
+        {"name": "Member 3", "role": "Backend Dev", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140047.png", "link": "#"},
+        {"name": "Member 4", "role": "Frontend Dev", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140051.png", "link": "#"},
+        {"name": "Member 5", "role": "Researcher", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140040.png", "link": "#"},
+        {"name": "Member 6", "role": "Manager", "img": "https://cdn-icons-png.flaticon.com/512/4140/4140039.png", "link": "#"},
     ]
 
-    # تصميم الـ CSS عشان الكروت تكون تفاعلية وشكلها حلو
+    # ---------------------------------------------------------
+    # 2. CSS (التصميم عشان يجوا جنب بعض)
+    # ---------------------------------------------------------
     st.markdown("""
     <style>
     .team-container {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 20px;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
+        padding: 10px;
     }
+    
     .card {
-        background-color: #262730; /* لون الكارت (يتماشى مع الدارك مود) */
-        border-radius: 15px;
-        padding: 20px;
-        width: 250px;
+        background-color: #262730;
+        border-radius: 10px;
+        padding: 15px;
         text-align: center;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        transition: transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        transition: transform 0.2s;
         border: 1px solid #444;
     }
+    
     .card:hover {
-        transform: translateY(-10px); /* حركة الرفع لفوق */
-        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        border-color: #ff4b4b; /* لون حدود أحمر عند الوقوف عليه */
+        transform: translateY(-5px);
+        border-color: #ff4b4b;
     }
+    
     .card img {
         border-radius: 50%;
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         object-fit: cover;
-        margin-bottom: 15px;
-        border: 3px solid #ff4b4b;
+        margin-bottom: 10px;
+        border: 2px solid #ff4b4b;
     }
+    
     .card h4 {
-        margin: 10px 0 5px 0;
+        margin: 5px 0;
+        font-size: 16px;
         color: #fff;
+        font-weight: 600;
     }
+    
     .card p {
         color: #aaa;
-        font-size: 14px;
-        margin-bottom: 15px;
+        font-size: 13px;
+        margin: 0;
     }
-    .social-links a {
+    
+    .card a {
+        display: inline-block;
+        margin-top: 10px;
         text-decoration: none;
-        margin: 0 10px;
-        font-size: 20px;
-        color: #fff;
-        transition: color 0.3s;
-    }
-    .social-links a:hover {
         color: #ff4b4b;
+        font-size: 12px;
+        font-weight: bold;
     }
     </style>
     """, unsafe_allow_html=True)
 
-    # تكوين كود الـ HTML للكروت
+    # ---------------------------------------------------------
+    # 3. تحويل البيانات لـ HTML وعرضها
+    # ---------------------------------------------------------
     cards_html = '<div class="team-container">'
     for member in team_members:
         cards_html += f"""
@@ -90,27 +89,25 @@ def show_footer():
             <img src="{member['img']}" alt="{member['name']}">
             <h4>{member['name']}</h4>
             <p>{member['role']}</p>
-            <div class="social-links">
-                <a href="{member['linkedin']}" target="_blank">LinkedIn</a>
-                <a href="{member['github']}" target="_blank">GitHub</a>
-            </div>
+            <a href="{member['link']}" target="_blank">View Profile</a>
         </div>
         """
     cards_html += '</div>'
 
+    # السطر ده هو اللي بيخلي الكود يظهر كشكل مش كنص
     st.markdown(cards_html, unsafe_allow_html=True)
 
     # ---------------------------------------------------------
-    # 2. FEEDBACK SECTION
+    # 4. قسم الفيدباك (Feedback Form) - رجعناه تاني
     # ---------------------------------------------------------
     st.write("---")
     st.subheader("📩 Send Feedback")
     
     with st.form("feedback_form"):
-        col1, col2 = st.columns(2)
-        with col1:
+        c1, c2 = st.columns(2)
+        with c1:
             name = st.text_input("Name (Optional)")
-        with col2:
+        with c2:
             email = st.text_input("Email (Optional)")
             
         feedback = st.text_area("Your Feedback", placeholder="Tell us what you think or report a bug...")
@@ -118,9 +115,7 @@ def show_footer():
         submitted = st.form_submit_button("Submit Feedback")
         
         if submitted:
-            if feedback:
-                # هنا ممكن تضيف كود يبعت الإيميل ليك أو يسيف الداتا في فايل
-                # كمثال بسيط هنعرض رسالة شكر
-                st.success("Thank you for your feedback! We appreciate it.")
-            else:
-                st.warning("Please write some feedback before submitting.")
+            st.success("Thank you for your feedback!")
+
+    # حقوق الملكية في النهاية
+    st.markdown("<br><p style='text-align: center; color: #666; font-size: 12px;'>&copy; 2025 Deepfake Detection System</p>", unsafe_allow_html=True)
