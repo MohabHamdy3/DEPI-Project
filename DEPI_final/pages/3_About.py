@@ -21,11 +21,3 @@ manipulated videos created using deep learning methods.
 ### Datasets
 - FaceForensics++ C23 
 """)
-# لازم تعمل import للملف (لو نقلته بره pages)
-from footer_component import show_footer
-
-# ولو استخدمت الحل التاني (حطيت underscore) يبقى:
-# from pages._footer_component import show_footer
-
-# وفي آخر السطر خالص استدعي الدالة:
-show_footer()
