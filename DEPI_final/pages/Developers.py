@@ -98,3 +98,4 @@ def show_footer():
     
     # حقوق الملكية في الآخر
     st.markdown("<p style='text-align: center; color: #666; font-size: 12px;'>&copy; 2025 Deepfake Detection System</p>", unsafe_allow_html=True)
+show_footer()    
