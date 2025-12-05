@@ -3,10 +3,10 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib
 def send_email(name, email, message):
-    sender_email = "YOUR_GMAIL@gmail.com"
+    sender_email = "ahmedsiefeleslam22@gmail.com"
     app_password = "eirf hmin zwbn psvt"  # من جوجل 16 حرف
 
-    receiver_email = "ahmedsiefeleslam22@gmail.com"  # الإيميل اللي توصله الفيدباك
+    receiver_email = "ahmedsiefeleslam@gmail.com"  # الإيميل اللي توصله الفيدباك
 
     subject = "New Feedback Received"
     
