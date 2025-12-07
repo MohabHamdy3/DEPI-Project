@@ -4,9 +4,9 @@ from email.mime.multipart import MIMEMultipart
 import smtplib
 def send_email(name, email, message):
     sender_email = "ahmedsiefeleslam22@gmail.com"
-    app_password = "eirf hmin zwbn psvt"  # من جوجل 16 حرف
+    app_password = "eirf hmin zwbn psvt" 
 
-    receiver_email = "ahmedsiefeleslam@gmail.com"  # الإيميل اللي توصله الفيدباك
+    receiver_email = "ahmedsiefeleslam@gmail.com"
 
     subject = "New Feedback Received"
     
@@ -38,11 +38,17 @@ def send_email(name, email, message):
 def show_footer():
     st.write("---")
     
-    # 1. العنوان
     st.markdown("<h3 style='text-align: center; color: #fff; margin-bottom: 30px;'>Meet the Team</h3>", unsafe_allow_html=True)
     
-    # 2. البيانات (تقدر تعدل اللينكات هنا)
+    # team members
     team_members = [
+        {
+            "name": "Mohab Hamdy Saleh", 
+            "role": "Manager", 
+            "img": "https://media.licdn.com/dms/image/v2/D4E03AQH0WeL9l4l1xg/profile-displayphoto-shrink_200_200/B4EZW5QtmvHcAY-/0/1742569921364?e=1766620800&v=beta&t=yKHUOpIplRIYlIE_hmiKmT8O2PBLrAC3dxG7-tnS2KI", 
+            "linkedin": "https://www.linkedin.com/in/mohabhamdy/", 
+            "github": "https://github.com/MohabHamdy3"
+        },
         {
             "name": "Ahmed Sief Eleslam", 
             "role": "AI Engineer", 
@@ -51,58 +57,51 @@ def show_footer():
             "github": "https://github.com/ahmedsief0"
         },
         {
-            "name": "Mohamed Ragab", 
+            "name": "Mohamed Ragab Abo-Baker", 
             "role": "Data Scientist", 
             "img": "https://media.licdn.com/dms/image/v2/D4D03AQF43t24jBTPdQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1706702711219?e=1766620800&v=beta&t=K7HEMSjkhIcuXXGOOpCN8v0fAEj5neEocpnDBNcCS0A", 
             "linkedin": "https://www.linkedin.com/in/moragab-22nov04/", 
             "github": "#"
         },
         {
-            "name": "Youssef ezzat", 
+            "name": "Youssef ezzat Abd-Shafy", 
             "role": "Backend Dev", 
             "img": "https://media.licdn.com/dms/image/v2/D4E03AQFR2tal4VhfRQ/profile-displayphoto-scale_200_200/B4EZrD1G1THoAY-/0/1764222071472?e=1766620800&v=beta&t=gS5ZHi4PI1cFAnLRFNqgZaP9n2pKKZmG3rc9rPfwEco", 
             "linkedin": "https://www.linkedin.com/in/youssefezzatb/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", 
             "github": "#"
         },
         {
-            "name": "Omar Mostafa", 
+            "name": "Omar Mostafa Omar", 
             "role": "Frontend Dev", 
             "img": "https://media.licdn.com/dms/image/v2/D4E35AQHYhmZcYm6aRw/profile-framedphoto-shrink_200_200/B4EZgYEjmaGUAc-/0/1752750504632?e=1765551600&v=beta&t=0hD_T-Gcy9sfvXzjeBkF9fpuSK_46y6qsFHcMdzju5o", 
             "linkedin": "https://www.linkedin.com/in/omar-mostafa-omar/?utm_source=share_via&utm_content=profile&utm_medium=member_android", 
             "github": "#"
         },
         {
-            "name": "Osama Abdelrahman", 
+            "name": "Osama Abdelrahman Saad", 
             "role": "Researcher", 
-            "img": "https://cdn-icons-png.flaticon.com/512/4140/4140040.png", 
+            "img": "https://media.licdn.com/dms/image/v2/D5603AQEwf2V4caDd9w/profile-displayphoto-crop_800_800/B56ZrvQYRoLAAI-/0/1764950646185?e=1766620800&v=beta&t=DFZmN3ajRVlXpzT_PkIdjLu-7sLAtNFePkmlbPXKHnU", 
             "linkedin": "https://www.linkedin.com/in/osamaabdelrahman1/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", 
-            "github": "#"
+            "github": "https://github.com/osamaabdelrahman152"
         },
-        {
-            "name": "Mohab Hamdy", 
-            "role": "Manager", 
-            "img": "https://media.licdn.com/dms/image/v2/D4E03AQH0WeL9l4l1xg/profile-displayphoto-shrink_200_200/B4EZW5QtmvHcAY-/0/1742569921364?e=1766620800&v=beta&t=yKHUOpIplRIYlIE_hmiKmT8O2PBLrAC3dxG7-tnS2KI", 
-            "linkedin": "https://www.linkedin.com/in/mohabhamdy/", 
-            "github": "#"
-        },
+        
     ]
 
 
-    # 3. CSS (التعديلات هنا: كبرنا المقاسات وظبطنا الـ Grid ليكون 3)
+    # CSS
     st.markdown("""
     <style>
     .team-grid {
         display: grid;
-        /* الرقم 250px ده هو اللي بيتحكم انهم يبقوا 3 جنب بعض على الشاشات العادية */
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 25px; /* مسافة أوسع بين الكروت */
+        gap: 25px;
         margin-bottom: 50px;
     }
     .team-card {
         background-color: #262730;
         border: 1px solid #444;
-        border-radius: 15px; /* زوايا أنعم */
-        padding: 25px; /* مساحة داخلية أكبر */
+        border-radius: 15px;
+        padding: 25px;
         text-align: center;
         transition: transform 0.3s;
         box-shadow: 0 4px 6px rgba(0,0,0,0.3);
@@ -113,7 +112,7 @@ def show_footer():
         box-shadow: 0 8px 15px rgba(255, 75, 75, 0.2);
     }
     .team-card img {
-        width: 110px; /* كبرنا الصورة */
+        width: 110px;
         height: 110px;
         border-radius: 50%;
         margin-bottom: 15px;
@@ -121,16 +120,15 @@ def show_footer():
     }
     .team-card h4 {
         margin: 0;
-        font-size: 22px; /* كبرنا اسم الشخص */
+        font-size: 22px;
         color: #fff;
         font-weight: 700;
     }
     .team-card p {
         margin: 8px 0 20px 0;
-        font-size: 15px; /* كبرنا المسمى الوظيفي */
+        font-size: 15px;
         color: #bbb;
     }
-    /* تنسيق أزرار لينكدإن وجيت هاب */
     .social-box {
         display: flex;
         justify-content: center;
@@ -142,7 +140,7 @@ def show_footer():
         font-size: 14px;
         font-weight: bold;
         background-color: #ff4b4b;
-        padding: 8px 16px; /* زرار أكبر */
+        padding: 8px 16px;
         border-radius: 6px;
         transition: background-color 0.3s, transform 0.2s;
     }
@@ -153,7 +151,7 @@ def show_footer():
     </style>
     """, unsafe_allow_html=True)
 
-    # 4. تجميع HTML (بدون مسافات عشان المشكلة السابقة)
+    # HTML 
     cards_html = '<div class="team-grid">'
     for member in team_members:
         cards_html += (
@@ -171,9 +169,9 @@ def show_footer():
 
     st.markdown(cards_html, unsafe_allow_html=True)
 
-    # 5. الفيدباك
+    # Feedback
     st.write("---")
-    st.subheader("📩 Send Feedback")
+    st.subheader("Send Feedback")
     
     with st.form("feedback_form"):
         c1, c2 = st.columns(2)
